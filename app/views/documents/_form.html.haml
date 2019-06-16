@@ -1,0 +1,17 @@
+= form_with(model: document, local: true) do |form|
+  - if document.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(document.errors.count, "error")
+        prohibited this document from being saved:
+      %ul
+        - document.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :key
+    = form.text_field :key
+  .field
+    = form.label :version
+    = form.text_field :version
+  .actions
+    = form.submit
