@@ -1,8 +1,9 @@
 class CreateDocuments < ActiveRecord::Migration[5.2]
   def change
     create_table :documents do |t|
-      t.string :key
-      t.string :version
+      t.string :name
+      t.string :description
+      t.string :key, index: true
 
       t.timestamps
     end

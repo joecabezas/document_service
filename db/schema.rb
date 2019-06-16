@@ -34,17 +34,21 @@ ActiveRecord::Schema.define(version: 2019_06_16_015943) do
   end
 
   create_table "documents", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
     t.string "key"
-    t.string "version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_documents_on_key"
   end
 
   create_table "versions", force: :cascade do |t|
+    t.string "key"
     t.integer "document_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_versions_on_document_id"
+    t.index ["key"], name: "index_versions_on_key"
   end
 
 end
