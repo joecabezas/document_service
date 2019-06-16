@@ -26,8 +26,11 @@ class DocumentsController < ApplicationController
   def create
     @document = Document.new
     @document.key = SecureRandom.hex
-    @document.version = SecureRandom.hex
-    @document.file.attach document_params[:file]
+
+    version = Version.new
+    version.file.attach document_params[:version][:file]
+
+    @document.versions << version
 
     respond_to do |format|
       if @document.save
@@ -43,6 +46,11 @@ class DocumentsController < ApplicationController
   # PATCH/PUT /documents/1
   # PATCH/PUT /documents/1.json
   def update
+    version = Version.new
+    version.file.attach document_params[:version][:file]
+
+    @document.versions << version
+
     respond_to do |format|
       if @document.update(document_params)
         format.html { redirect_to @document, notice: 'Document was successfully updated.' }
@@ -72,6 +80,12 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:file)
+      params
+        .require(:document)
+        .permit(
+          version: [
+            :file
+          ]
+        )
     end
 end

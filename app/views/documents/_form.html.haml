@@ -8,7 +8,8 @@
         - document.errors.full_messages.each do |message|
           %li= message
   .field
-    = form.label :file
-    = form.file_field :file
+    = form.fields :version do |fields|
+      = fields.label :file
+      = fields.file_field :file
   .actions
     = form.submit

@@ -1,15 +1,21 @@
 %p#notice= notice
 
+= link_to 'Add New Version', edit_document_path(@document)
+
 %p
   %strong Key:
   = @document.key
-%p
-  %strong Version:
-  = @document.version
-%p
-  %strong File:
-  = link_to :download, rails_blob_url(@document.file, disposition: "attachment")
 
-= link_to 'Edit', edit_document_path(@document)
-|
-= link_to 'Back', documents_path
+- @document.versions.each do |version|
+  %p
+    %span
+      %strong Id:
+      = version.id
+    %span
+      %strong File:
+      = link_to :download, rails_blob_url(version.file, disposition: "attachment")
+    %span
+      = version.created_at
+
+%p
+  = link_to 'Back', documents_path
