@@ -25,10 +25,9 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new
-    @document.key = SecureRandom.hex
 
     version = Version.new
-    version.file.attach document_params[:version][:file]
+    version.file.attach version_params[:version][:file]
 
     @document.versions << version
 
@@ -46,11 +45,6 @@ class DocumentsController < ApplicationController
   # PATCH/PUT /documents/1
   # PATCH/PUT /documents/1.json
   def update
-    version = Version.new
-    version.file.attach document_params[:version][:file]
-
-    @document.versions << version
-
     respond_to do |format|
       if @document.update(document_params)
         format.html { redirect_to @document, notice: 'Document was successfully updated.' }
@@ -73,19 +67,26 @@ class DocumentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_document
       @document = Document.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def document_params
+    def version_params
       params
         .require(:document)
         .permit(
           version: [
             :file
           ]
+        )
+    end
+
+    def document_params
+      params
+        .require(:document)
+        .permit(
+          :name,
+          :decription
         )
     end
 end

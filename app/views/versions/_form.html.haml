@@ -1,0 +1,7 @@
+= form_with(scope: :version, url: document_versions_path, local: true) do |form|
+  .field
+    = form.label :file
+    = form.file_field :file
+  .actions
+    = form.submit
+
