@@ -24,7 +24,10 @@ class DocumentsController < ApplicationController
   # POST /documents
   # POST /documents.json
   def create
-    @document = Document.new(document_params)
+    @document = Document.new
+    @document.key = SecureRandom.hex
+    @document.version = SecureRandom.hex
+    @document.file.attach document_params[:file]
 
     respond_to do |format|
       if @document.save
@@ -69,6 +72,6 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:key, :version)
+      params.require(:document).permit(:file)
     end
 end

@@ -1,10 +1,15 @@
 %p#notice= notice
+
 %p
   %strong Key:
   = @document.key
 %p
   %strong Version:
   = @document.version
+%p
+  %strong File:
+  = link_to :download, rails_blob_url(@document.file, disposition: "attachment")
+
 = link_to 'Edit', edit_document_path(@document)
 |
 = link_to 'Back', documents_path
