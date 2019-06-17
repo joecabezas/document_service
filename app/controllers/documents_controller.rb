@@ -24,7 +24,7 @@ class DocumentsController < ApplicationController
   # POST /documents
   # POST /documents.json
   def create
-    @document = Document.new
+    @document = Document.new document_params
 
     version = Version.new
     version.file.attach version_params[:version][:file]
@@ -86,7 +86,7 @@ class DocumentsController < ApplicationController
         .require(:document)
         .permit(
           :name,
-          :decription
+          :description
         )
     end
 end

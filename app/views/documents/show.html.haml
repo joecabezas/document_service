@@ -5,6 +5,14 @@
 %p
   %strong Key:
   = @document.key
+%p
+  %strong Name:
+  = @document.name
+%p
+  %strong Description:
+  = @document.description
+
+%hr
 
 - @document.versions.each do |version|
   %p

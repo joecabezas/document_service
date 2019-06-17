@@ -8,6 +8,14 @@
         - document.errors.full_messages.each do |message|
           %li= message
   .field
+    = form.label :name
+    = form.text_field :name
+
+  .field
+    = form.label :description
+    = form.text_field :description
+
+  .field
     = form.fields :version do |fields|
       = fields.label :file
       = fields.file_field :file
